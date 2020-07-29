@@ -3,9 +3,9 @@ data "aws_ecs_cluster" "ecs_apps" {
 }
 
 resource "aws_cloudwatch_event_rule" "default" {
-  name        = var.name
-  description = var.event_description
-  is_enabled  = var.rule_enabled
+  name                = var.name
+  description         = var.event_description
+  is_enabled          = var.rule_enabled
   schedule_expression = "cron(${var.schedule_expression})"
 }
 
