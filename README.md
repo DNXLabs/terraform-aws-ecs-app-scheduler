@@ -11,12 +11,12 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 
 ## Resources
 
-1. [Cloudwatch Events](#Cloudwatch\ Events)
-2. [Cron expression](#Cron\ expression)
-3. [IAM role](#Iam\ Role)
-4. [IAM policy](#IAM\ Policy)
-5. [Cloudwatch Log Group](#Cloudwatch\ Log\ Group)
-6. [ECS task definition](#Task\ Definition)
+1. [Cloudwatch Events](#Cloudwatch-Events)
+2. [Cron expression](#Cron-expression)
+3. [IAM role](#Iam-Role)
+4. [IAM policy](#IAM-Policy)
+5. [Cloudwatch Log Group](#Cloudwatch-Log-Group)
+6. [ECS task definition](#Task-Definition)
 
 ## Resources definition
 
