@@ -104,16 +104,21 @@ A task definition is required to run Docker containers in Amazon ECS. Some of th
 
 ```bash
 module "example" {
-  source = "./.terraform/modules2/terraform-aws-ecs-app-scheduler"
 
-  vpc_id                          = data.aws_vpc.selected.id # From DNXLabs/terraform-aws-ecs
-  cluster_name                    = module.ecs_apps.ecs_name # From DNXLabs/terraform-aws-ecs
-  service_role_arn                = module.ecs_apps.ecs_service_iam_role_arn # From DNXLabs/terraform-aws-ecs
-  task_role_arn                   = module.ecs_apps.ecs_task_iam_role_arn # From DNXLabs/terraform-aws-ecs
-  memory                          = 512
-  schedule_expression             = "0/30 * * * ? *" # it will trigger the task every 30 minutes https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
   
-  name                   = "example"
+
+  source               = "git::https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler?ref=0.0.2"
+  name                 = "example"
+  vpc_id               = data.aws_vpc.selected.id # From DNXLabs/terraform-aws-ecs
+  cluster_name         = module.ecs_apps.ecs_name # From DNXLabs/terraform-aws-ecs
+  service_role_arn     = module.ecs_apps.ecs_service_iam_role_arn # From DNXLabs/terraform-aws-ecs
+  task_role_arn        = module.ecs_apps.ecs_task_iam_role_arn # From DNXLabs/terraform-aws-ecs
+  memory               = 512
+  schedule_expression  = "0/30 * * * ? *" # it will trigger the task every 30 minutes https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+  account_id           = var.aws_account_id
+}
+
+
 }
 ```
 
