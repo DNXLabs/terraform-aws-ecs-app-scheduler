@@ -64,3 +64,6 @@ variable "iam_path" {
 variable "event_description" {
   default = "ECS task"
 }
+
+variable "account_id" {
+}
