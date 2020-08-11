@@ -11,18 +11,18 @@ This modules creates the following resources:
 
  - IAM roles - The cloudwatch event needs an IAM Role to run the ECS task definition. A role is created and a policy will be granted via IAM policy.
  - IAM policy - Policy to be attached to the IAM Role. This policy will have a trust with the cloudwatch event service. And it will use the managed policy `AmazonEC2ContainerServiceEventsRole` created by AWS.
- - Cloudwatch Log Groups  
-        - You can specify the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653.
-        - Export to a S3 Bucket - Whether to mark the log group to export to an S3 bucket (needs the module terraform-aws-log-exporter (https://github.com/DNXLabs/terraform-aws-log-exporter) to be deployed in the account/region)
+ - Cloudwatch Log Groups   
+      - You can specify the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653.
+      - Export to a S3 Bucket - Whether to mark the log group to export to an S3 bucket (needs the module terraform-aws-log-exporter (https://github.com/DNXLabs/terraform-aws-log-exporter) to be deployed in the account/region)
  - ECS task definition - A task definition is required to run Docker containers in Amazon ECS. Some of the parameters you can specify in a task definition include:
-        - Image - Docker image to deploy 
+      - Image - Docker image to deploy 
            -  Default Value = "alpine:latest"
-        - CPU - Hard limit of the CPU for the container
+      - CPU - Hard limit of the CPU for the container
            -  Default Value = 0
-        - Memory - Hard memory of the container
+      - Memory - Hard memory of the container
            -  Default Value = 512
-        - Name - Name of the ECS Service
-        - Set log configuration
+      - Name - Name of the ECS Service
+      - Set log configuration
 
  - ECS Task-scheduler activated by cloudwatch events
  - Cron expression - You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions. All scheduled events use UTC time zone and the minimum precision for schedules is 1 minute.
