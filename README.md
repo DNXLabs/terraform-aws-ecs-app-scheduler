@@ -3,9 +3,7 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-ecs-app-scheduler)](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/blob/master/LICENSE)
 
-This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer (ALB)
-
-This module is designed to be used with [DNXLabs/terraform-aws-ecs](https://github.com/DNXLabs/terraform-aws-ecs).
+This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer(ALB), designed to be used with [DNXLabs/terraform-aws-ecs](https://github.com/DNXLabs/terraform-aws-ecs).
 
 The following resources will be created:
 
