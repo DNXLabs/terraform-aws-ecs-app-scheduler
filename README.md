@@ -122,9 +122,6 @@ A task definition is required to run Docker containers in Amazon ECS. Some of th
 
 ```bash
 module "example" {
-
-  
-
   source               = "git::https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler?ref=0.0.2"
   name                 = "example"
   vpc_id               = data.aws_vpc.selected.id # From DNXLabs/terraform-aws-ecs
@@ -135,13 +132,9 @@ module "example" {
   schedule_expression  = "0/30 * * * ? *" # it will trigger the task every 30 minutes https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
   account_id           = var.aws_account_id
 }
-
-
-}
 ```
 
 <!--- END_TF_DOCS --->
-
 
 ## Authors
 
