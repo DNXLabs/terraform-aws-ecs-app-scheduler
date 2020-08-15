@@ -3,11 +3,27 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-ecs-app-scheduler)](https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler/blob/master/LICENSE)
 
-AWS ECS Application Module for Scheduler (no ALB)
+This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer(ALB), designed to be used with [DNXLabs/terraform-aws-ecs](https://github.com/DNXLabs/terraform-aws-ecs).
 
-This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
+The following resources will be created:
 
-<!--- BEGIN_TF_DOCS --->
+ - IAM roles - The cloudwatch event needs an IAM Role to run the ECS task definition. A role is created and a policy will be granted via IAM policy.
+ - IAM policy - Policy to be attached to the IAM Role. This policy will have a trust with the cloudwatch event service. And it will use the managed policy `AmazonEC2ContainerServiceEventsRole` created by AWS.
+ - Cloudwatch Log Groups
+      - You can specify the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653.
+      - Export to a S3 Bucket - Whether to mark the log group to export to an S3 bucket (needs the module terraform-aws-log-exporter (https://github.com/DNXLabs/terraform-aws-log-exporter) to be deployed in the account/region)
+ - ECS task definition - A task definition is required to run Docker containers in Amazon ECS. Some of the parameters you can specify in a task definition include:
+      - Image - Docker image to deploy
+           -  Default Value = "alpine:latest"
+      - CPU - Hard limit of the CPU for the container
+           -  Default Value = 0
+      - Memory - Hard memory of the container
+           -  Default Value = 512
+      - Name - Name of the ECS Service
+      - Set log configuration
+
+ - ECS Task-scheduler activated by cloudwatch events
+ - Cron expression - You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions. All scheduled events use UTC time zone and the minimum precision for schedules is 1 minute.
 
 ## Resources
 
@@ -62,7 +78,23 @@ A task definition is required to run Docker containers in Amazon ECS. Some of th
 
 [Task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
 
-## Mudule usage
+## Usage
+
+```bash
+module "example" {
+  source               = "git::https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler?ref=0.0.2"
+  name                 = "example"
+  vpc_id               = data.aws_vpc.selected.id # From DNXLabs/terraform-aws-ecs
+  cluster_name         = module.ecs_apps.ecs_name # From DNXLabs/terraform-aws-ecs
+  service_role_arn     = module.ecs_apps.ecs_service_iam_role_arn # From DNXLabs/terraform-aws-ecs
+  task_role_arn        = module.ecs_apps.ecs_task_iam_role_arn # From DNXLabs/terraform-aws-ecs
+  memory               = 512
+  schedule_expression  = "0/30 * * * ? *" # it will trigger the task every 30 minutes https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+  account_id           = var.aws_account_id
+}
+```
+
+<!--- BEGIN_TF_DOCS --->
 
 ## Requirements
 
@@ -100,30 +132,7 @@ A task definition is required to run Docker containers in Amazon ECS. Some of th
 |------|-------------|
 | aws\_cloudwatch\_log\_group\_arn | n/a |
 
-## Example
-
-```bash
-module "example" {
-
-  
-
-  source               = "git::https://github.com/DNXLabs/terraform-aws-ecs-app-scheduler?ref=0.0.2"
-  name                 = "example"
-  vpc_id               = data.aws_vpc.selected.id # From DNXLabs/terraform-aws-ecs
-  cluster_name         = module.ecs_apps.ecs_name # From DNXLabs/terraform-aws-ecs
-  service_role_arn     = module.ecs_apps.ecs_service_iam_role_arn # From DNXLabs/terraform-aws-ecs
-  task_role_arn        = module.ecs_apps.ecs_task_iam_role_arn # From DNXLabs/terraform-aws-ecs
-  memory               = 512
-  schedule_expression  = "0/30 * * * ? *" # it will trigger the task every 30 minutes https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-  account_id           = var.aws_account_id
-}
-
-
-}
-```
-
 <!--- END_TF_DOCS --->
-
 
 ## Authors
 
