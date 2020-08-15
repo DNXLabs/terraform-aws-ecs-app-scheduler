@@ -5,9 +5,9 @@
 
 This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer (ALB)
 
-This module is designed to be used with `DNXLabs/terraform-aws-ecs` (https://github.com/DNXLabs/terraform-aws-ecs).
+This module is designed to be used with [DNXLabs/terraform-aws-ecs](https://github.com/DNXLabs/terraform-aws-ecs).
 
-This modules creates the following resources:
+The following resources will be created:
 
  - IAM roles - The cloudwatch event needs an IAM Role to run the ECS task definition. A role is created and a policy will be granted via IAM policy.
  - IAM policy - Policy to be attached to the IAM Role. This policy will have a trust with the cloudwatch event service. And it will use the managed policy `AmazonEC2ContainerServiceEventsRole` created by AWS.
@@ -26,6 +26,61 @@ This modules creates the following resources:
 
  - ECS Task-scheduler activated by cloudwatch events
  - Cron expression - You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions. All scheduled events use UTC time zone and the minimum precision for schedules is 1 minute.
+
+## Resources
+
+1. [Cloudwatch Events](#Cloudwatch-Events)
+2. [Cron expression](#Cron-expression)
+3. [IAM role](#Iam-Role)
+4. [IAM policy](#IAM-Policy)
+5. [Cloudwatch Log Group](#Cloudwatch-Log-Group)
+6. [ECS task definition](#Task-Definition)
+
+## Resources definition
+
+### Cloudwatch Events
+
+Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. Using simple rules that you can quickly set up, you can match events and route them to one or more target functions or streams. CloudWatch Events becomes aware of operational changes as they occur. CloudWatch Events responds to these operational changes and takes corrective action as necessary, by sending messages to respond to the environment, activating functions, making changes, and capturing state information.
+
+[Cloudwatch Events documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)
+
+### Cron expression
+
+You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions. All scheduled events use UTC time zone and the minimum precision for schedules is 1 minute.
+
+[Schedule expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
+
+### Iam Role
+
+The cloudwatch event needs an IAM Role to run the ECS task definition. A role is created and a policy will be granted via IAM policy.
+
+### IAM Policy
+
+Policy to be attached to the IAM Role. This policy will have a trust with the cloudwatch event service. And it will use the managed policy `AmazonEC2ContainerServiceEventsRole` created by AWS.
+
+### Cloudwatch Log Group
+
+A log group is a group of log streams that share the same retention, monitoring, and access control settings. You can define log groups and specify which streams to put into each group. There is no limit on the number of log streams that can belong to one log group.
+
+[Log Groups](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html)
+
+### Task Definition
+
+A task definition is required to run Docker containers in Amazon ECS. Some of the parameters you can specify in a task definition include:
+
+- The Docker image to use with each container in your task
+- How much CPU and memory to use with each task or each container within a task
+- The launch type to use, which determines the infrastructure on which your tasks are hosted
+- The Docker networking mode to use for the containers in your task
+- The logging configuration to use for your tasks
+- Whether the task should continue to run if the container finishes or fails
+- The command the container should run when it is started
+- Any data volumes that should be used with the containers in the task
+- The IAM role that your tasks should use
+
+[Task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
+
+<!--- BEGIN_TF_DOCS --->
 
 ## Requirements
 
