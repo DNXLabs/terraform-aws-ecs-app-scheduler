@@ -10,10 +10,10 @@ resource "aws_cloudwatch_event_rule" "default" {
 }
 
 resource "aws_cloudwatch_event_target" "default" {
-  target_id   = var.name
-  arn         = data.aws_ecs_cluster.ecs_apps.arn
-  rule        = aws_cloudwatch_event_rule.default.name
-  role_arn    = aws_iam_role.ecs_events.arn
+  target_id = var.name
+  arn       = data.aws_ecs_cluster.ecs_apps.arn
+  rule      = aws_cloudwatch_event_rule.default.name
+  role_arn  = aws_iam_role.ecs_events.arn
 
   ecs_target {
     task_definition_arn = aws_ecs_task_definition.default.arn_without_revision
