@@ -16,7 +16,7 @@ resource "aws_cloudwatch_event_target" "default" {
   role_arn  = aws_iam_role.ecs_events.arn
 
   ecs_target {
-    task_definition_arn = aws_ecs_task_definition.default.arn_without_revision
+    task_definition_arn = aws_ecs_task_definition.default.arn
     platform_version    = var.platform_version
     launch_type         = var.launch_type
     network_configuration {
