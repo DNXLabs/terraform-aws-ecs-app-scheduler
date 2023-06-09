@@ -100,7 +100,7 @@ module "example" {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
+| terraform | >= 0.13.0 |
 
 ## Providers
 
@@ -113,6 +113,7 @@ module "example" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | account\_id | n/a | `any` | n/a | yes |
+| assign\_public\_ip | n/a | `bool` | `false` | no |
 | cloudwatch\_logs\_export | Whether to mark the log group to export to an S3 bucket (needs terraform-aws-log-exporter to be deployed in the account/region) | `bool` | `false` | no |
 | cloudwatch\_logs\_retention | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653. | `number` | `120` | no |
 | cluster\_name | n/a | `string` | `"Name of existing ECS Cluster to deploy this app to"` | no |
@@ -122,12 +123,15 @@ module "example" {
 | image | Docker image to deploy (can be a placeholder) | `string` | `"alpine:latest"` | no |
 | launch\_type | Instance type. Fargate allowed | `string` | `"EC2"` | no |
 | memory | Hard memory of the container | `string` | `"512"` | no |
-| name | Name of your ECS service | `any` | n/a | yes |
+| name | Name of your ECS service | `string` | n/a | yes |
+| platform\_version | n/a | `string` | `"LATEST"` | no |
 | rule\_enabled | Whether the rule should be enabled | `bool` | `true` | no |
-| schedule\_expression | Cron expression | `any` | n/a | yes |
-| service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | n/a | yes |
-| task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
-| vpc\_id | VPC ID to deploy this app to | `any` | n/a | yes |
+| schedule\_expression | Cron expression | `string` | n/a | yes |
+| security\_group\_ids | n/a | `list(string)` | `[]` | no |
+| service\_role\_arn | Existing service role ARN created by ECS cluster module | `string` | n/a | yes |
+| subnets\_ids | n/a | `list(string)` | `[]` | no |
+| task\_role\_arn | Existing task role ARN created by ECS cluster module | `string` | n/a | yes |
+| vpc\_id | VPC ID to deploy this app to | `string` | n/a | yes |
 
 ## Outputs
 
