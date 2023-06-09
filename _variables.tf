@@ -53,6 +53,11 @@ variable "assign_public_ip" {
   default = null
 }
 
+variable "platform_version" {
+  type    = string
+  default = "LATEST"
+}
+
 variable "cloudwatch_logs_retention" {
   default     = 120
   type = number
@@ -79,12 +84,12 @@ variable "launch_type" {
 
 variable "schedule_expression" {
   description = "Cron expression"
-  type = string
+  type        = string
 }
 
 variable "iam_path" {
   default = "/"
-  type = string
+  type    = string
 }
 
 variable "event_description" {
