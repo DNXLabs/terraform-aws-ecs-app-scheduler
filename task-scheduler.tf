@@ -10,10 +10,17 @@ resource "aws_cloudwatch_event_rule" "default" {
 }
 
 resource "aws_cloudwatch_event_target" "default" {
-  target_id = var.name
-  arn       = data.aws_ecs_cluster.ecs_apps.arn
-  rule      = aws_cloudwatch_event_rule.default.name
-  role_arn  = aws_iam_role.ecs_events.arn
+  target_id   = var.name
+  arn         = data.aws_ecs_cluster.ecs_apps.arn
+  rule        = aws_cloudwatch_event_rule.default.name
+  role_arn    = aws_iam_role.ecs_events.arn
+  launch_type = var.launch_type
+
+  network_configuration {
+    subnets          = var.subnet_ids
+    security_groups  = var.security_group_ids
+    assign_public_ip = var.assign_public_ip
+  }
 
   ecs_target {
     task_definition_arn = "arn:aws:ecs:${data.aws_region.current.name}:${var.account_id}:task-definition/${var.cluster_name}-${var.name}"

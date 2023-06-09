@@ -33,6 +33,27 @@ variable "vpc_id" {
   description = "VPC ID to deploy this app to"
 }
 
+variable "launch_type" {
+  type    = string
+  default = "EC2"
+  description = "Valid values include: EC2, EXTERNAL, or FARGATE."
+}
+
+variable "subnets_ids" {
+  type    = list(string)
+  default = null
+}
+
+variable "security_group_ids" {
+  type    = list(string)
+  default = null
+}
+
+variable "assign_public_ip" {
+  type    = bool
+  default = null
+}
+
 variable "cloudwatch_logs_retention" {
   default     = 120
   description = "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
